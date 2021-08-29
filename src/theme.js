@@ -6,7 +6,7 @@ const theme = {
     sucess: "#135E01",
   }, 
   fonts: {
-    regular: "Roboto, sans-serif"
+    regular: "Inter, sans-serif"
   }
 }
 
