@@ -39,6 +39,11 @@ export const CarouselTitle = styled.h1`
   margin: 16px 0;
 `;
 
+export const Divider = styled.hr`
+  margin:5px 16px 20px;
+  opacity: 0.4;
+`;
+
 export const Map = styled.div`
   background-color: red;
   flex: 1;

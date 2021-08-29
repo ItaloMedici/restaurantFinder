@@ -3,11 +3,11 @@ import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 // import Slider from "react-slick";
 
-import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Map } from "./styles";
+import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider, Map } from "./styles";
 
 import logo from '../../assets/logo.svg';
 import restaurantFakeImg from '../../assets/restaurante-fake.png'
-import { Card } from '../../components';
+import { Card, RestaurantCard } from '../../components';
 
 const Home = () => {
   const [value, setValue] = useState('');
@@ -46,9 +46,10 @@ const Home = () => {
             <Card photo={restaurantFakeImg} />
             <Card photo={restaurantFakeImg} />
             <Card photo={restaurantFakeImg} />
-    
           </Carousel>
         </Search>
+        <Divider />
+        <RestaurantCard />
       </Container>
       <Map />
     </Wrapper>
