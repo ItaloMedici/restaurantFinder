@@ -7,10 +7,11 @@ import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider, Map
 
 import logo from '../../assets/logo.svg';
 import restaurantFakeImg from '../../assets/restaurante-fake.png'
-import { Card, RestaurantCard } from '../../components';
+import { Card, RestaurantCard, Modal } from '../../components';
 
 const Home = () => {
   const [value, setValue] = useState('');
+  const [modalValue, setModalValue] = useState(true);
 
   const settings = {
     dots: false,
@@ -52,8 +53,9 @@ const Home = () => {
         <RestaurantCard />
       </Container>
       <Map />
+      <Modal open={modalValue} onClose={() => setModalValue(!modalValue)}/>
     </Wrapper>
   )
 }
 
-export default Home;
+export default Home;  

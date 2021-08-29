@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-import ReactStars from "react-rating-stars-component";
 
 export const Restaurant = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr 16px;
+  grid-gap: 10px;
+  align-items: center;
 
   margin-top: 5px;
-  padding: 16px;
+  padding: 16px 14px;
   margin: 0 15px;
-  border-radius: 6px;
+  border-radius: 8px;
 
   background-color: #FFF;
   box-shadow: 0 0 10px ${props => props.theme.colors.lightGrey};
@@ -27,25 +28,24 @@ export const RestaurantInfo = styled.div`
   flex-direction: column;
 `;
 
+export const ImageRestaurant = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+`;
+
 export const Title = styled.span`
   font-family: ${props => props.theme.fonts.regular};
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
-  line-height: 29px;
+  line-height: 25px;
   margin-bottom: 10px;
 `;
 
 export const Addres = styled.span`
   font-family: ${props => props.theme.fonts.regular};
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
   margin-bottom: 10px;
 `;
-
-/* export const Avaliation = styled(ReactStars)`
-  #sc-dQoVA{
-    background-color: red;
-  }
-`;
-
-console.log(Avaliation); */

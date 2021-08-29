@@ -1,9 +1,12 @@
 import React from 'react';
-import { Restaurant, RestaurantInfo, Title, Addres }  from './style';
 import ReactStars from "react-rating-stars-component";
+
+import { Restaurant, ImageRestaurant, RestaurantInfo, Title, Addres }  from './style';
+import RestaurantFakeImage from './../../assets/restaurante-fake.png'
 
 const RestaurantCard = () => 
   <Restaurant>
+    <ImageRestaurant src={RestaurantFakeImage} />
     <RestaurantInfo >
       <Title>Pao na chapa do Giu</Title>
       <Addres>Rua ze da CUNHA, 93</Addres>

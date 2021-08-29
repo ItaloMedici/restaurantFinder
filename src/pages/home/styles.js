@@ -10,6 +10,7 @@ export const Container = styled.aside`
   width: 360px;
   height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export const Search = styled.section`
@@ -45,6 +46,6 @@ export const Divider = styled.hr`
 `;
 
 export const Map = styled.div`
-  background-color: red;
+  background-color: grey;
   flex: 1;
 `;
