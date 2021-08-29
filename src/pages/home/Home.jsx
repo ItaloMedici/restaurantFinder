@@ -3,15 +3,15 @@ import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 // import Slider from "react-slick";
 
-import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider, Map } from "./styles";
+import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider } from "./styles";
 
 import logo from '../../assets/logo.svg';
 import restaurantFakeImg from '../../assets/restaurante-fake.png'
-import { Card, RestaurantCard, Modal } from '../../components';
+import { Card, RestaurantCard, Modal, Map } from '../../components';
 
 const Home = () => {
   const [value, setValue] = useState('');
-  const [modalValue, setModalValue] = useState(true);
+  const [modalValue, setModalValue] = useState(false);
 
   const settings = {
     dots: false,
