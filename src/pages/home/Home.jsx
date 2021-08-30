@@ -10,8 +10,9 @@ import restaurantFakeImg from '../../assets/restaurante-fake.png'
 import { Card, RestaurantCard, Modal, Map } from '../../components';
 
 const Home = () => {
-  const [value, setValue] = useState('');
-  const [modalValue, setModalValue] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [modalOpened, setModalOpened] = useState(false);
+  const [query, setQuery] = useState(null);
 
   const settings = {
     dots: false,
@@ -22,6 +23,12 @@ const Home = () => {
     adaptiveHeight: true,
   }
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      setQuery(inputValue);
+    }
+  }
+
   return (
     <Wrapper>
       <Container>
@@ -30,12 +37,12 @@ const Home = () => {
           <TextField
             label='Search'
             outlined
-            // onTrailingIconSelect={() => this.setState({value: ''})}
             trailingIcon={<MaterialIcon role="button" icon="search" />}
           >
             <Input
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              value={inputValue}
+              onKeyPress={handleKeyPress}
+              onChange={(e) => setInputValue(e.target.value)}
             />
           </TextField>
           <CarouselTitle>Next to you</CarouselTitle>
@@ -52,8 +59,8 @@ const Home = () => {
         <Divider />
         <RestaurantCard />
       </Container>
-      <Map />
-      <Modal open={modalValue} onClose={() => setModalValue(!modalValue)}/>
+      <Map query={query}/>
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/>
     </Wrapper>
   )
 }

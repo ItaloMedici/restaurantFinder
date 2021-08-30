@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 
+import { setRestaurants } from '../../redux/modules/restaurants'
+
 export const MapContainer = (props) => {
+  const dispath = useDispatch();
+  const { restaurants } = useSelector(state => state.restaurants);
+
   const [map, setMap] = useState(null);
-  const { google } = props;
+  const { google, query } = props;
+
+  useEffect(() => {
+    if (query) {
+      searchByQuery(query);
+    }
+  }, [query])
 
   const searchNearby = (map, center) => {
     const service = new google.maps.places.PlacesService(map);
@@ -16,8 +28,24 @@ export const MapContainer = (props) => {
 
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        /* dispatch(setRestaurants(results)); */
-        console.log(results)
+        dispatch(setRestaurants(results));
+      }
+    });
+  };
+
+  const searchByQuery = (query) => {
+    const service = new google.maps.places.PlacesService(map);
+
+    const request = {
+      location: map.center,
+      radius: '20000',
+      type: ['restaurant'],
+      query,
+    };
+
+    service.textSearch(request, (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        dispatch(setRestaurants(results));
       }
     });
   };
@@ -31,7 +59,18 @@ export const MapContainer = (props) => {
     google={google}
     centerAroundCurrentLocation
     onReady={onMapReady}
-    onRecenter={onMapReady} />
+    onRecenter={onMapReady} >
+      {restaurants.map(restaurant => {
+        <Maker 
+          key={restaurant.place_id} 
+          name={restaurant} 
+          position={{
+            lat: restaurant.geometry.location.lat(),
+            lng: restaurant.geometry.location.lng(),
+          }} 
+        />
+      })}
+    </Map>
 };
 
 export default GoogleApiWrapper({
