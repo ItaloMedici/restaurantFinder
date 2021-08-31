@@ -4,8 +4,8 @@ import ReactStars from "react-rating-stars-component";
 import { Restaurant, ImageRestaurant, RestaurantInfo, Title, Addres } from './style';
  import restaurantFakeImage from './../../assets/restaurante-fake.png'
 
-const RestaurantCard = ({ restaurant }) =>
-  <Restaurant>
+const RestaurantCard = ({ restaurant, onClick }) =>
+  <Restaurant onClick={onClick}>
     <ImageRestaurant 
       src={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImage} 
       alt="Restaurant Photo" 

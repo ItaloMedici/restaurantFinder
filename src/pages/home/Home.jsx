@@ -13,15 +13,22 @@ const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [modalOpened, setModalOpened] = useState(false);
   const [query, setQuery] = useState(null);
-  const { restaurants } = useSelector(state => state.restaurants);
+  const [placeId, setPlaceId] = useState(null);
+  const { restaurants, restaurantsSelected } = useSelector(state => state.restaurants);
 
   const settings = {
     dots: false,
     infinite: true,
+    autoplay: true,
     speed: 300,
     slidesToShow: 4,
     slidesToScroll: 4,
     adaptiveHeight: true,
+  }
+
+  function handleOpenModal(placeId) {
+    setPlaceId(placeId);
+    setModalOpened(true)
   }
 
   function handleKeyPress(e) {
@@ -46,7 +53,7 @@ const Home = () => {
               onChange={(e) => setInputValue(e.target.value)}
             />
           </TextField>
-          <CarouselTitle>Next to you</CarouselTitle>
+          <CarouselTitle>Near to you</CarouselTitle>
           <Carousel {...settings}>
           {restaurants.map(restaurant => (
             <Card 
@@ -58,11 +65,14 @@ const Home = () => {
         </Search>
         <Divider />
         {restaurants.map(restaurant => (
-          <RestaurantCard key={restaurant.place_id}  restaurant={restaurant}/>  
+          <RestaurantCard 
+            key={restaurant.place_id} 
+            onClick={() => handleOpenModal(restaurant.place_id)}
+            restaurant={restaurant} />  
         ))}
       </Container>
-      <Map query={query}/>
-      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/>
+      <Map query={query} placeId={placeId} />
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
     </Wrapper>
   )
 }
