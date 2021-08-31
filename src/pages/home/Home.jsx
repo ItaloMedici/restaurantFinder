@@ -72,7 +72,11 @@ const Home = () => {
         ))}
       </Container>
       <Map query={query} placeId={placeId} />
-      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} >
+        <h1>{restaurantsSelected?.name}</h1>
+        <p>{restaurantsSelected?.formatted_phone_number}</p>
+        <p>{restaurantsSelected?.formatted_address}</p>
+      </Modal>
     </Wrapper>
   )
 }
