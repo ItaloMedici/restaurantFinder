@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
-// import Slider from "react-slick";
+import { useSelector } from "react-redux";
 
 import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider } from "./styles";
 
@@ -13,6 +13,7 @@ const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [modalOpened, setModalOpened] = useState(false);
   const [query, setQuery] = useState(null);
+  const { restaurants } = useSelector(state => state.restaurants);
 
   const settings = {
     dots: false,
@@ -47,17 +48,18 @@ const Home = () => {
           </TextField>
           <CarouselTitle>Next to you</CarouselTitle>
           <Carousel {...settings}>
-            <Card photo={restaurantFakeImg} title="Aooo"/>
-            <Card photo={restaurantFakeImg} />
-            <Card photo={restaurantFakeImg} />
-            <Card photo={restaurantFakeImg} />
-            <Card photo={restaurantFakeImg} />
-            <Card photo={restaurantFakeImg} />
-            <Card photo={restaurantFakeImg} />
+          {restaurants.map(restaurant => (
+            <Card 
+              key={restaurant.place_id}
+              photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImg} 
+              title={restaurant.name}/>
+          ))}
           </Carousel>
         </Search>
         <Divider />
-        <RestaurantCard />
+        {restaurants.map(restaurant => (
+          <RestaurantCard key={restaurant.place_id}  restaurant={restaurant}/>  
+        ))}
       </Container>
       <Map query={query}/>
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}/>

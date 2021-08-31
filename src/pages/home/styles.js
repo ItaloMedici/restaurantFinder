@@ -47,5 +47,4 @@ export const Divider = styled.hr`
 
 export const Map = styled.div`
   background-color: grey;
-  flex: 1;
 `;

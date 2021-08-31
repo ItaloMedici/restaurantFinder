@@ -8,7 +8,7 @@ export const Restaurant = styled.div`
 
   margin-top: 5px;
   padding: 16px 14px;
-  margin: 0 15px;
+  margin: 0 15px 10px;
   border-radius: 8px;
 
   background-color: #FFF;
@@ -47,5 +47,4 @@ export const Addres = styled.span`
   font-family: ${props => props.theme.fonts.regular};
   font-size: 14px;
   line-height: 19px;
-  margin-bottom: 10px;
 `;

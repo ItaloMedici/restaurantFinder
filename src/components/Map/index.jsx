@@ -5,7 +5,7 @@ import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import { setRestaurants } from '../../redux/modules/restaurants'
 
 export const MapContainer = (props) => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const { restaurants } = useSelector(state => state.restaurants);
 
   const [map, setMap] = useState(null);
@@ -22,7 +22,7 @@ export const MapContainer = (props) => {
 
     const request = {
       location: center,
-      radius: '20000',
+      radius: '2000',
       type: ['restaurant'],
     };
 
@@ -55,22 +55,25 @@ export const MapContainer = (props) => {
     searchNearby(map, map.center);
   }
 
-  return <Map
-    google={google}
-    centerAroundCurrentLocation
-    onReady={onMapReady}
-    onRecenter={onMapReady} >
-      {restaurants.map(restaurant => {
-        <Maker 
+  return (
+    <Map
+      google={google}
+      centerAroundCurrentLocation
+      onReady={onMapReady}
+      onRecenter={onMapReady} 
+    >
+      {restaurants.map(restaurant => (
+        <Marker 
           key={restaurant.place_id} 
-          name={restaurant} 
+          name={restaurant.name} 
           position={{
             lat: restaurant.geometry.location.lat(),
             lng: restaurant.geometry.location.lng(),
           }} 
         />
-      })}
+      ))}
     </Map>
+  );
 };
 
 export default GoogleApiWrapper({
