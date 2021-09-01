@@ -7,7 +7,7 @@ import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider, Res
 
 import logo from '../../assets/logo.svg';
 import restaurantFakeImg from '../../assets/restaurante-fake.png'
-import { Card, RestaurantCard, Modal, Map } from '../../components';
+import { Card, RestaurantCard, Modal, Map, Loader } from '../../components';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
@@ -53,15 +53,21 @@ const Home = () => {
               onChange={(e) => setInputValue(e.target.value)}
             />
           </TextField>
-          <CarouselTitle>Near to you</CarouselTitle>
-          <Carousel {...settings}>
-            {restaurants.map(restaurant => (
-              <Card
-                key={restaurant.place_id}
-                photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImg}
-                title={restaurant.name} />
-            ))}
-          </Carousel>
+          {restaurants.length > 0 ? (
+            <>
+              <CarouselTitle>Near to you</CarouselTitle>
+              <Carousel {...settings}>
+                {restaurants.map(restaurant => (
+                  <Card
+                    key={restaurant.place_id}
+                    photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImg}
+                    title={restaurant.name} />
+                ))}
+              </Carousel>
+            </>
+          ) : (
+            <Loader />
+          )}
         </Search>
         <Divider />
         {restaurants.map(restaurant => (
