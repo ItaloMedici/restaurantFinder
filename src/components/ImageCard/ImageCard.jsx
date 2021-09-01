@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import LoadingSkeleton from '../Skeleton';
 
 import styled from 'styled-components';
 
@@ -30,9 +31,26 @@ const Title = styled.span`
   word-wrap: break-word;  
 `;
 
-const ImageCard = ({ photo, title }) => 
-  <Card photo={photo}>
-    <Title>{title}</Title>
-  </Card>
+const ImageCard = ({ photo, title }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = photo;
+    image.onload = () => setImageLoaded(true);
+  }, [photo])
+
+  return (
+    <>
+      {imageLoaded ? (
+        <Card photo={photo}>
+          <Title>{title}</Title>
+        </Card>
+      ) : (
+        <LoadingSkeleton width="100px" height="100px" />
+      )}
+    </>
+  )
+}
 
 export default ImageCard;

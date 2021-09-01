@@ -29,6 +29,7 @@ export const RestaurantInfo = styled.div`
 `;
 
 export const ImageRestaurant = styled.img`
+  display: ${prop => prop.isLoade ? 'block' : 'none'};
   width: 100%;
   height: 100%;
   object-fit: cover;

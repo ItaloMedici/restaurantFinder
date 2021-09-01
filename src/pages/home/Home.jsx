@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider, RestaurantCardModal, RestaurantTitle, RestaurantInfo } from "./styles";
 
 import logo from '../../assets/logo.svg';
-import restaurantFakeImg from '../../assets/restaurante-fake.png'
-import { Card, RestaurantCard, Modal, Map, Loader } from '../../components';
+import imageNotFound from '../../assets/image-not-found.png'
+import { Card, RestaurantCard, Modal, Map, Loader, LoadingSkeleton } from '../../components';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
@@ -60,7 +60,7 @@ const Home = () => {
                 {restaurants.map(restaurant => (
                   <Card
                     key={restaurant.place_id}
-                    photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImg}
+                    photo={restaurant.photos ? restaurant.photos[0].getUrl() : imageNotFound}
                     title={restaurant.name} />
                 ))}
               </Carousel>
@@ -79,17 +79,31 @@ const Home = () => {
       </Container>
       <Map query={query} placeId={placeId} />
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} >
-        <RestaurantTitle>{restaurantsSelected?.name}</RestaurantTitle>
-        <Divider />
-        <RestaurantCardModal>
-          <RestaurantInfo><MaterialIcon role="button" icon="phone" />{restaurantsSelected?.formatted_phone_number}</RestaurantInfo>
-          <RestaurantInfo><MaterialIcon role="button" icon="room" />{restaurantsSelected?.formatted_address}</RestaurantInfo>
-          {restaurantsSelected?.opening_hours?.open_now ? (
-            <RestaurantInfo><MaterialIcon role="button" icon="check" />Open!</RestaurantInfo>
-          ) : (
-            <RestaurantInfo><MaterialIcon role="button" icon="close" />Closed!</RestaurantInfo>
-          )}
-        </RestaurantCardModal>
+        {restaurantsSelected ? (
+          <>
+            <RestaurantTitle>{restaurantsSelected?.name}</RestaurantTitle>
+            <Divider />
+            <RestaurantCardModal>
+              <RestaurantInfo><MaterialIcon role="button" icon="phone" />{restaurantsSelected?.formatted_phone_number}</RestaurantInfo>
+              <RestaurantInfo><MaterialIcon role="button" icon="room" />{restaurantsSelected?.formatted_address}</RestaurantInfo>
+              {restaurantsSelected?.opening_hours?.open_now ? (
+                <RestaurantInfo><MaterialIcon role="button" icon="check" />Open!</RestaurantInfo>
+              ) : (
+                <RestaurantInfo><MaterialIcon role="button" icon="close" />Closed!</RestaurantInfo>
+              )}
+            </RestaurantCardModal>
+          </>
+        ) : (
+          <>
+            <LoadingSkeleton width="10px" height="26px"/>
+            <RestaurantCardModal>
+              <LoadingSkeleton width="10px" height="15px"/>
+              <LoadingSkeleton width="10px" height="15px"/>
+              <LoadingSkeleton width="10px" height="15px"/>
+            </RestaurantCardModal>
+          </>
+        ) }
+
       </Modal>
     </Wrapper>
   )
