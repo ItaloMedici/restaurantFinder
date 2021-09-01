@@ -3,7 +3,7 @@ import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 import { useSelector } from "react-redux";
 
-import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider } from "./styles";
+import { Wrapper, Container, Search, Logo, Carousel, CarouselTitle, Divider, RestaurantCardModal, RestaurantTitle, RestaurantInfo } from "./styles";
 
 import logo from '../../assets/logo.svg';
 import restaurantFakeImg from '../../assets/restaurante-fake.png'
@@ -55,30 +55,38 @@ const Home = () => {
           </TextField>
           <CarouselTitle>Near to you</CarouselTitle>
           <Carousel {...settings}>
-          {restaurants.map(restaurant => (
-            <Card 
-              key={restaurant.place_id}
-              photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImg} 
-              title={restaurant.name}/>
-          ))}
+            {restaurants.map(restaurant => (
+              <Card
+                key={restaurant.place_id}
+                photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurantFakeImg}
+                title={restaurant.name} />
+            ))}
           </Carousel>
         </Search>
         <Divider />
         {restaurants.map(restaurant => (
-          <RestaurantCard 
-            key={restaurant.place_id} 
+          <RestaurantCard
+            key={restaurant.place_id}
             onClick={() => handleOpenModal(restaurant.place_id)}
-            restaurant={restaurant} />  
+            restaurant={restaurant} />
         ))}
       </Container>
       <Map query={query} placeId={placeId} />
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} >
-        <h1>{restaurantsSelected?.name}</h1>
-        <p>{restaurantsSelected?.formatted_phone_number}</p>
-        <p>{restaurantsSelected?.formatted_address}</p>
+        <RestaurantTitle>{restaurantsSelected?.name}</RestaurantTitle>
+        <Divider />
+        <RestaurantCardModal>
+          <RestaurantInfo><MaterialIcon role="button" icon="phone" />{restaurantsSelected?.formatted_phone_number}</RestaurantInfo>
+          <RestaurantInfo><MaterialIcon role="button" icon="room" />{restaurantsSelected?.formatted_address}</RestaurantInfo>
+          {restaurantsSelected?.opening_hours?.open_now ? (
+            <RestaurantInfo><MaterialIcon role="button" icon="check" />Open!</RestaurantInfo>
+          ) : (
+            <RestaurantInfo><MaterialIcon role="button" icon="close" />Closed!</RestaurantInfo>
+          )}
+        </RestaurantCardModal>
       </Modal>
     </Wrapper>
   )
 }
 
-export default Home;  
+export default Home;

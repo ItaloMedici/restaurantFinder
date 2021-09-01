@@ -45,6 +45,33 @@ export const Divider = styled.hr`
   opacity: 0.4;
 `;
 
-export const Map = styled.div`
-  background-color: grey;
+export const RestaurantCardModal = styled.div`
+  display: grid;
+  gap: 9px;
+  grid-template-columns: 1.5fr 2fr 1fr;
+  align-items: flex-start;
+  text-align: center;
+`;
+
+export const RestaurantTitle = styled.h1`
+  color: ${props => props.theme.colors.primary};
+  font-family: ${props => props.theme.fonts.regular};
+  font-weight: bold;
+  font-size: 38px;
+  line-height: 42px;
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+export const RestaurantInfo = styled.p`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  color: ${props => props.theme.colors.text};
+  font-family: ${props => props.theme.fonts.regular};
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 10px;
 `;
